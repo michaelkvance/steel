@@ -2,7 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 16
 __lua__
 
--- our line can run around the screen now
+-- using a C style API and adding a 'ship'
 
 function clamp(x, nx, mx)
 	if (x < nx) return nx
@@ -64,7 +64,7 @@ end
 
 function ship_init()
 	local s = {
-			size=vec2d_init(5,5),
+			size=vec2d_init(20,20),
 			origin=vec2d_init(64,64),
 			angles={theta=0,normal=vec2d_init(1,0)},
 			velocity=vec2d_init(0,0)
@@ -73,7 +73,7 @@ function ship_init()
 end
 
 function ship_thrust(ship, impulse)
-	-- vec2d_translate(ship.origin, etc.)
+	-- vec2d_translate(ship.origin, )
 end
 
 function ship_turn(ship, theta)
@@ -87,12 +87,11 @@ function ship_draw(ship)
 	-- print("theta = " .. ship.angles.theta)
 	-- print("normal = " .. vec2d_tostring(ship.angles.normal))
 	-- print("size = " .. vec2d_tostring(ship.size))
-	local scale = vec2d_mul(ship.angles.normal, ship.size)
-	local lp = vec2d_add(ship.origin, scale)
-	local x = ship.origin.x
-	local y = ship.origin.y
+	local scaled = vec2d_mul(ship.angles.normal, ship.size)
+	local target = vec2d_add(ship.origin, scaled)
+	local origin = ship.origin
 	-- print("x,y,lp = " .. x .. "," .. y .. " " .. vec2d_tostring(lp))
-	line(x,y,lp.x,lp.y,7)
+	line(origin.x,origin.y,target.x,target.y,7)
 end
 
 ship = ship_init()

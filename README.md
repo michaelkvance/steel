@@ -21,6 +21,18 @@ Pico-8 uses a fairly restricted subset of Lua but it's still useful to read up o
 [Documentation](https://www.lua.org/docs.html)  
 [Programming in Lua](https://www.lua.org/pil/contents.html)  
 
+Some interesting quirks of the Pico-8 implementation of Lua:
+
+  * PICO-8 numbers only go up to 32767.99. If you add 1 to a counter each frame, it will overflow after around 18 minutes!
+  * Lua arrays are 1-based by default, not 0-based. FOREACH starts at T[1], not T[0].
+  * cos() and sin() take 0..1 instead of 0..PI * 2, and sin() is inverted.
+  * sgn(0) returns 1.
+
+There are some snippets in the tree that demonstrate simple Lua concepts:
+
+  * iter.lua - Shows the difference between iterating over keys and values in a table versus a sequence of integers.
+  * value-reference.lua - Shows some of the differences in behaviors between atomic value types and reference-value types.
+
 ## Advanced Scripting
 
 These are bits that are particularly advanced/gnarly.

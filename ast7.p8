@@ -111,7 +111,7 @@ end
 
 local function bullet_tick(bullet)
 	if not bullet.alive then return end
-	if bullet.age > 900 then
+	if bullet.age > 300 then
 		bullet.age = 0
 		bullet.alive = false
 		return
@@ -216,7 +216,12 @@ end
 
 local function bullet_draw(bullet)
 	local origin = bullet.origin
-	local color = 7
+	local color = 15
+	if bullet.age > 30 then
+		color = 13
+	elseif bullet.age > 15 then
+		color = 14
+	end
 	pset(origin.x, origin.y, color)
 end
 
@@ -228,7 +233,7 @@ local function ship_draw(ship)
 	local sharpness = 140
 	local left = vec2d_add(origin, vec2d_scale(vec2d_rotate(scaled, sharpness), 0.5))
 	local right = vec2d_add(origin, vec2d_scale(vec2d_rotate(scaled, -sharpness), 0.5))
-	local color = 7
+	local color = 12
 	line(tip.x, tip.y, left.x, left.y, color)
 	line(tip.x, tip.y, right.x, right.y, color)
 	line(left.x, left.y, origin.x, origin.y, color)
@@ -239,9 +244,28 @@ local function ship_draw(ship)
 	end
 end
 
+local function stars_init(speed)
+	local s = {
+		points = {},
+		velocity = vec2d_init(speed, 0)
+	}
+	for index = 1,4 do
+		s.points[index] = vec2d_init(0,0)
+	end
+	return s
+end
+
+local function starfield_init()
+	local s = {
+		planes = {}
+	}
+	return s
+end
+
 local function world_init()
 	local w = {
-		ship = ship_init()
+		ship = ship_init(),
+		starfield = starfield_init()
 	}
 	return w
 end

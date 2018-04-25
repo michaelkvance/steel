@@ -51,8 +51,8 @@ There are also some source snippets in the tree that demonstrate some of these c
   * ast3.p8 - In which we attempt to build a class-like object.
   * ast4.p8 - In which we abandon an attempt to build a class-like object, move to a saner C-like interface, and also start to build an object representation for the game.
   * ast5.p8 - In which we implement impulse and world wrapping, and build a proper looking ship.
-  * ast6.p8 - In which we provide ammunition for our experience.
-  * ast7.p8 - In which we provide an awesome starfield because the world looks lonely.
+  * ast6.p8 - In which we provide ammunition for our experience, further building out state and related infrastructure.
+  * ast7.p8 - In which we provide an awesome starfield because the world looks lonely, and fix a bug in our shooty bits.
   * ast8.p8 - In which we add asteroid targets.
   * ast9.p8 - In which we add melodious sounds.
   * ast10.p8 - In which we add a score mechanism.

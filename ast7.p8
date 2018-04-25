@@ -2,7 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 16
 __lua__
 
--- let's continue to build state in an exciting way!
+-- let's fix a bug in the shooty bits and add a lovely starfield
 
 function clamp(x, nx, mx)
 	if (x < nx) return nx
@@ -137,7 +137,8 @@ local function ship_init()
 			normal = vec2d_init(1, 0)
 		},
 		velocity = vec2d_init(0, 0),
-		bullets = {}
+		bullets = {},
+		heat = 0
 	}
 	for index = 1, 4 do
 		s.bullets[index] = bullet_init()
@@ -163,13 +164,13 @@ end
 
 local function ship_next_bullet(ship)
 	-- XXX highest number?
-	local oldest = 32767.99
+	local oldest = 0
 	local which = 1
 	for i, b in pairs(ship.bullets) do
 		if b.alive == false then
 			return b
 		end
-		if b.age < oldest then
+		if b.age >= oldest then
 			which = i
 			oldest = b.age
 		end
@@ -178,12 +179,15 @@ local function ship_next_bullet(ship)
 end
 
 local function ship_fire(ship)
+	if ship.heat != 0 then return end
+
 	local direction = ship.angles.normal
 	local scaled = vec2d_mul(direction, ship.size)
 	local origin = ship.origin
 	local tip = vec2d_add(origin, vec2d_scale(scaled, 0.5))
 	local bullet = ship_next_bullet(ship)
 	bullet_fire(bullet, tip, direction)
+	ship.heat = 15
 end
 
 local function ship_tick(ship, buttons)
@@ -206,6 +210,8 @@ local function ship_tick(ship, buttons)
 		b = ship.bullets[index]
 		bullet_tick(b)
 	end
+
+	if ship.heat > 0 then ship.heat -= 1 end
 end
 
 local function bullet_draw(bullet)
@@ -306,9 +312,13 @@ local function state_tick(state)
 end
 
 state = state_init()
+cleared = false
 
 function _draw()
-	cls()
+	if not cleared then
+		-- cleared = true
+		cls()
+	end	
 	state_draw(state)
 end
 

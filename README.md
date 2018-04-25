@@ -1,9 +1,9 @@
 Steel
 ======
-Examples and reference for the [Rockland Steel House](http://www.rocklandsteelhouse.com) programming series.  
-24 Apr 2018  
-Michael Vance  
+Examples and reference for the [Rockland Steel House](http://www.rocklandsteelhouse.com) [programming series](https://github.com/michaelkvance/steel).  
+_24 Apr 2018_  
 Wade Brainerd  
+Michael Vance  
 
 ## Pico-8
 
@@ -20,3 +20,29 @@ Pico-8 uses a fairly restricted subset of Lua but it's still useful to read up o
 [Home page](https://www.lua.org/)  
 [Documentation](https://www.lua.org/docs.html)  
 [Programming in Lua](https://www.lua.org/pil/contents.html)  
+
+## Advanced Scripting
+
+These are bits that are particularly advanced/gnarly.
+
+[Class-like Objects](https://www.lexaloffle.com/bbs/?tid=2951)
+[Metatables](https://www.lexaloffle.com/bbs/?tid=3342)
+
+There are also some source snippets in the tree that demonstrate some of these concepts.
+
+  * vec2d_t.lua, shim.lua - This implements a simple vec2d_t 'class' and shows how to use it, including using the \_\_call method. Ultimately this method is unworkable for Pico-8 as the global 'require' is not supported in the Pico-8 Lua subset.
+
+## Asteroids!
+
+  * ast1.p8 - In which we demonstrate some simple line drawing and TTY output, as well as discuss some simple linear algebra.
+  * ast2.p8 - In which we demonstrate a composite variable (table) and correct a bug.
+  * ast3.p8 - In which we attempt to build a class-like object.
+  * ast4.p8 - In which we abandon an attempt to build a class-like object, move to a saner C-like interface, and also start to build an object representation for the game.
+  * ast5.p8 - In which we implement impulse and world wrapping, and build a proper looking ship.
+  * ast6.p8 - In which we provide ammunition for our experience.
+  * ast7.p8 - In which we provide an awesome starfield because the world looks lonely.
+  * ast8.p8 - In which we add asteroid targets.
+  * ast9.p8 - In which we add melodious sounds.
+  * ast10.p8 - In which we add a score mechanism.
+ 
+

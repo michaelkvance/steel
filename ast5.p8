@@ -110,7 +110,8 @@ function ship_draw(ship)
 	local color = 7
 	line(tip.x, tip.y, left.x, left.y, color)
 	line(tip.x, tip.y, right.x, right.y, color)
-	line(left.x, left.y, right.x, right.y, color)
+	line(left.x, left.y, origin.x, origin.y, color)
+	line(right.x, right.y, origin.x, origin.y, color)
 end
 
 ship = ship_init()

@@ -2,7 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 16
 __lua__
 
--- let's actually implement impulse
+-- let's actually implement impulse and draw a triangle
 
 function clamp(x, nx, mx)
 	if (x < nx) return nx
@@ -17,29 +17,36 @@ function wrap(x, nx, mx)
 end
 
 function vec2d_init(x, y)
-	v = {x=x, y=y}
+	local v = { x = x, y = y }
 	return v
 end
 
 function vec2d_add(a, b)
 	local x = a.x + b.x
 	local y = a.y + b.y
-	v = {x=x, y=y}
+	local v = { x = x, y = y }
 	return v
 end
 
 function vec2d_mul(a, b)
 	local x = a.x * b.x
 	local y = a.y * b.y
-	v = {x=x, y=y}
+	local v = { x = x, y = y }
 	return v
 end
 
 function vec2d_scale(v, s)
 	local x = v.x * s
 	local y = v.y * s
-	v = {x=x, y=y}
-	return v
+	local vp = { x = x, y = y }
+	return vp
+end
+
+function vec2d_wrap(v, nv, mv)
+	local x = wrap(v.x, nv.x, mv.x)
+	local y = wrap(v.y, nv.y, mv.y)
+	local vp = vec2d_init(x, y)
+	return vp
 end
 
 function vec2d_tostring(v)
@@ -57,17 +64,17 @@ function vec2d_rotate(v, theta)
 	local r11 = ct
 	local vx = v.x
 	local vy = v.y
-	local xp = (vx*ct)-(vy*st)
-	local yp = (vx*st)+(vy*ct)
-	return vec2d_init(xp, yp)	
+	local xp = (vx * ct) - (vy * st)
+	local yp = (vx * st) + (vy * ct)
+	return vec2d_init(xp, yp)
 end
 
 function ship_init()
 	local s = {
-			size=vec2d_init(5,5),
-			origin=vec2d_init(64,64),
-			angles={theta=0,normal=vec2d_init(1,0)},
-			velocity=vec2d_init(0,0)
+			size = vec2d_init(7, 7),
+			origin = vec2d_init(64, 64),
+			angles = { theta = 0, normal = vec2d_init(1, 0) },
+			velocity = vec2d_init(0, 0)
 		}
 	return s
 end
@@ -80,20 +87,30 @@ function ship_thrust(ship, impulse)
 	-- exciting bug here!
 	-- local translation = vec2d_mul(normal, velocity)
 	-- ship.origin = vec2d_add(ship.origin, translation)
-	ship.origin = vec2d_add(ship.origin, velocity)
+	local origin = vec2d_add(ship.origin, velocity)
+	origin = vec2d_wrap(origin, vec2d_init(0,0), vec2d_init(128,128))
+	ship.origin = origin
 end
 
 function ship_turn(ship, theta)
 	ship.angles.theta = wrap(ship.angles.theta + theta, 0, 360)
-	local base = vec2d_init(1,0)
+	local base = vec2d_init(1, 0)
 	ship.angles.normal = vec2d_rotate(base, ship.angles.theta)
 end
 
 function ship_draw(ship)
-	local scaled = vec2d_mul(ship.angles.normal, ship.size)
-	local target = vec2d_add(ship.origin, scaled)
+	local normal = ship.angles.normal
+	local scaled = vec2d_mul(normal, ship.size)
 	local origin = ship.origin
-	line(origin.x,origin.y,target.x,target.y,7)
+	local target = vec2d_add(origin, scaled)
+	local tip = vec2d_add(origin, vec2d_scale(scaled, 0.5))
+	local sharpness = 140
+	local left = vec2d_add(origin, vec2d_scale(vec2d_rotate(scaled, sharpness), 0.5))
+	local right = vec2d_add(origin, vec2d_scale(vec2d_rotate(scaled, -sharpness), 0.5))
+	local color = 7
+	line(tip.x, tip.y, left.x, left.y, color)
+	line(tip.x, tip.y, right.x, right.y, color)
+	line(left.x, left.y, right.x, right.y, color)
 end
 
 ship = ship_init()

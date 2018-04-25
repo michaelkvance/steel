@@ -25,8 +25,8 @@ Pico-8 uses a fairly restricted subset of Lua but it's still useful to read up o
 
 These are bits that are particularly advanced/gnarly.
 
-[Class-like Objects](https://www.lexaloffle.com/bbs/?tid=2951)
-[Metatables](https://www.lexaloffle.com/bbs/?tid=3342)
+[Class-like Objects](https://www.lexaloffle.com/bbs/?tid=2951)  
+[Metatables](https://www.lexaloffle.com/bbs/?tid=3342)  
 
 There are also some source snippets in the tree that demonstrate some of these concepts.
 
@@ -44,5 +44,5 @@ There are also some source snippets in the tree that demonstrate some of these c
   * ast8.p8 - In which we add asteroid targets.
   * ast9.p8 - In which we add melodious sounds.
   * ast10.p8 - In which we add a score mechanism.
- 
+
 

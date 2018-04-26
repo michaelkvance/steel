@@ -33,14 +33,19 @@ There are some snippets in the tree that demonstrate simple Lua concepts:
   * iter.lua - Shows the difference between iterating over keys and values in a table versus a sequence of integers.
   * value-reference.lua - Shows some of the differences in behaviors between atomic value types and reference-value types.
 
-## Advanced Scripting
+## Advanced Topics
 
-These are bits that are particularly advanced/gnarly.
+These are bits that are particularly advanced/gnarly. The first discuss object-oriented approaches in Lua. Pico-8's Lua implementation supports setmetatable() but not some of the other infrastructure necessary to implement some of those approaches.
 
 [Class-like Objects](https://www.lexaloffle.com/bbs/?tid=2951)  
 [Metatables](https://www.lexaloffle.com/bbs/?tid=3342)  
 
-There are also some source snippets in the tree that demonstrate some of these concepts.
+Pico-8 uses a 16:16 representation as opposed to the traditional 64-bit float in Lua, which is why the maximum value of a number in Pico-8 is 32767.9,  repeating.
+
+[Fixed-point arithmetic](https://en.wikipedia.org/wiki/Fixed-point_arithmetic)  
+[Q16:16](https://en.wikipedia.org/wiki/Q_\(number_format\))  
+
+There are also some source snippets in the tree that demonstrate some of these advanced concepts.
 
   * vec2d_t.lua, shim.lua - This implements a simple vec2d_t 'class' and shows how to use it, including using the \_\_call method. Ultimately this method is unworkable for Pico-8 as the global 'require' is not supported in the Pico-8 Lua subset.
 

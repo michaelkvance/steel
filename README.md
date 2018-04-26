@@ -11,7 +11,8 @@ We are using the Pico-8 environment in order to get started quickly and get bits
 
 [Home page ](https://www.lexaloffle.com/pico-8.php)  
 [FAQ](https://www.lexaloffle.com/pico-8.php?page=faq)  
-[Manual](https://www.lexaloffle.com/pico-8.php?page=manual)
+[Manual](https://www.lexaloffle.com/pico-8.php?page=manual)  
+[Palette](https://www.romanzolotarev.com/pico-8-color-palette/)  
 
 ## Lua
 

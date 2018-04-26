@@ -163,7 +163,6 @@ local function ship_turn(ship, theta)
 end
 
 local function ship_next_bullet(ship)
-	-- XXX highest number?
 	local oldest = 0
 	local which = 1
 	for i, b in pairs(ship.bullets) do
@@ -217,9 +216,9 @@ end
 local function bullet_draw(bullet)
 	local origin = bullet.origin
 	local color = 15
-	if bullet.age > 30 then
+	if bullet.age > 24 then
 		color = 13
-	elseif bullet.age > 15 then
+	elseif bullet.age > 12 then
 		color = 14
 	end
 	pset(origin.x, origin.y, color)
@@ -244,13 +243,14 @@ local function ship_draw(ship)
 	end
 end
 
-local function stars_init(speed)
+local function stars_init(speed, color)
 	local s = {
 		points = {},
-		velocity = vec2d_init(speed, 0)
+		velocity = vec2d_init(speed, 0),
+		color = color
 	}
 	for index = 1,4 do
-		s.points[index] = vec2d_init(0,0)
+		s.points[index] = vec2d_init(rnd(128),rnd(128))
 	end
 	return s
 end
@@ -259,20 +259,52 @@ local function starfield_init()
 	local s = {
 		planes = {}
 	}
+	local colors = { 5, 6, 7 }
+	for index = 1,3 do
+		s.planes[index] = stars_init(index, colors[index])
+	end
 	return s
+end
+
+local function starfield_tick(field)
+	for k,p in pairs(field.planes) do
+		for sk, sp in pairs(p.points) do
+			p.points[sk] = vec2d_add(sp, p.velocity)
+			if sp.x > 128 then
+				p.points[sk] = vec2d_init(0, rnd(128))
+			end
+		end
+	end
+end
+
+local function starfield_draw(field)
+	for k,p in pairs(field.planes) do
+		for sk, sp in pairs(p.points) do
+			pset(sp.x, sp.y, p.color)
+		end
+	end
 end
 
 local function world_init()
 	local w = {
-		ship = ship_init(),
-		starfield = starfield_init()
+		starfield = starfield_init(),
+		ship = ship_init()
 	}
 	return w
 end
 
 local function world_tick(world, buttons)
+	local starfield = world.starfield
 	local ship = world.ship
+	starfield_tick(starfield)
 	ship_tick(ship, buttons)
+end
+
+local function world_draw(world)
+	local field = world.starfield
+	local ship = world.ship
+	starfield_draw(field)
+	ship_draw(ship)
 end
 
 local function state_init()
@@ -289,8 +321,7 @@ end
 
 local function state_draw(state)
 	local world = state.world
-	local ship = world.ship
-	ship_draw(ship)
+	world_draw(world)
 end
 
 -- for below, pico-8 button index is 0-based

@@ -67,7 +67,11 @@ There are also some source snippets in the tree that demonstrate some of these a
 ## Ideas!
 
   * Add a thruster effect to the back of the ship.
-  * Add particle effects when the asteroids are shot.
+  * Add particle effects and sound when the asteroids are shot.
   * Improve the acceleration curve on the ship's thruster.
   * Fix the behavior when you shoot at high ship speed.
-
+  * Make the starfield scroll relative to the ship speed.
+  * Draw the asteroids as line segments instead of circles.
+  * Have the asteroids explode into other asteroids.
+  * Make the asteroids rotate as they move around.
+  * Add collision for the ship against the edges of the screen, rather than wrap-around.

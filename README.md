@@ -28,6 +28,7 @@ Some interesting quirks of the Pico-8 implementation of Lua:
   * Lua arrays are 1-based by default, not 0-based. FOREACH starts at T[1], not T[0].
   * cos() and sin() take 0..1 instead of 0..PI * 2, and sin() is inverted.
   * sgn(0) returns 1.
+  * It seems that line number correspondence for Lua errors is off by 3 lines, possibly due to the Pico-8 header lines.
 
 There are some snippets in the tree that demonstrate simple Lua concepts:
 

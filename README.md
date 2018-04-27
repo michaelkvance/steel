@@ -64,4 +64,10 @@ There are also some source snippets in the tree that demonstrate some of these a
   * ast9.p8 - In which we add melodious sounds.
   * ast10.p8 - In which we add a score mechanism.
 
+## Ideas!
+
+  * Add a thruster effect to the back of the ship.
+  * Add particle effects when the asteroids are shot.
+  * Improve the acceleration curve on the ship's thruster.
+  * Fix the behavior when you shoot at high ship speed.
 

@@ -4,6 +4,32 @@ __lua__
 
 -- let's add asteroids!
 
+console = {}
+
+function console_post(message)
+	local c = {
+		age = 0,
+		text = message
+	}
+	add(console, c)
+end
+
+function console_tick()
+	for post in all(console) do
+	    if post.age > 30 then
+	    	del(console, post)
+	    else
+	    	post.age = post.age + 1
+	    end
+	end
+end
+
+function console_draw()
+	for k,p in pairs(console) do
+		print(p.text)
+	end
+end
+
 function clamp(x, nx, mx)
 	if (x < nx) return nx
 	if (x > mx) return mx
@@ -24,6 +50,13 @@ end
 function vec2d_add(a, b)
 	local x = a.x + b.x
 	local y = a.y + b.y
+	local v = {x = x, y = y}
+	return v
+end
+
+function vec2d_sub(a, b)
+	local x = a.x - b.x
+	local y = a.y - b.y
 	local v = {x = x, y = y}
 	return v
 end
@@ -123,6 +156,11 @@ end
 local function bullet_tick(bullet)
 	if not bullet.alive then return end
 	if bullet.age > 300 then
+		bullet.age = 0
+		bullet.alive = false
+		return
+	end
+	if bullet.origin.x < 0 or bullet.origin.x > 128 or bullet.origin.y < 0 or bullet.origin.y > 128 then
 		bullet.age = 0
 		bullet.alive = false
 		return
@@ -322,7 +360,7 @@ local function asteroid_tick(roid)
 	local origin = roid.origin
 	local velocity = roid.velocity
 	local deltav = vec2d_add(origin, velocity)
-	roid.origin = vec2d_wrap(deltav, vec2d_init(0,0), vec2d_init(128,128))
+	roid.origin = deltav -- vec2d_wrap(deltav, vec2d_init(0,0), vec2d_init(128,128))
 end
 
 local function asteroid_draw(roid)
@@ -358,7 +396,6 @@ end
 local function asteroids_spawn(field)
 	local quadrant = field.quadrant
 	field.quadrant = wrap(quadrant + 1, 0, 4)
-	print("spawn")
 	local theta = quadrant * 90 + rnd(90)
 	local direction = vec2d_rotate(vec2d_init(1,0), theta)
 	local perturb = vec2d_rotate(direction, rnd(30) - 15)
@@ -380,7 +417,6 @@ local function asteroids_tick(field)
 	else
 		field.ready = field.ready + 1
 	end
-	-- simulate everything
 	for k,a in pairs(field.roids) do
 		asteroid_tick(a)
 	end
@@ -401,6 +437,29 @@ local function world_init()
 	return w
 end
 
+local function world_resolve(world)
+	local ship = world.ship
+	local bullets = ship.bullets
+	local field = world.asteroids
+	for k,b in pairs(bullets) do
+		if b.alive then
+			for f,a in pairs(field.roids) do
+				if a.alive then
+					local delta = vec2d_sub(a.origin, b.origin)
+					local distance = vec2d_dot(delta)
+					local check = a.radius * a.radius
+					if distance < check then
+						console_post(k .. "v" .. f .. " hit")
+						field.ready = 0
+						b.alive = false
+						a.alive = false
+					end
+				end
+			end
+		end
+	end
+end
+
 local function world_tick(world, buttons)
 	local stars = world.starfield
 	local ship = world.ship
@@ -408,6 +467,7 @@ local function world_tick(world, buttons)
 	starfield_tick(stars)
 	asteroids_tick(field)
 	ship_tick(ship, buttons)
+	world_resolve(world)
 end
 
 local function world_draw(world)
@@ -480,6 +540,7 @@ end
 
 state = state_init()
 cleared = false
+console_post("startup")
 
 function _draw()
 	if not cleared then
@@ -487,8 +548,10 @@ function _draw()
 		cls()
 	end	
 	state_draw(state)
+	console_draw()
 end
 
 function _update()
 	state_tick(state)
+	console_tick()
 end

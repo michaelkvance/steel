@@ -60,9 +60,9 @@ There are also some source snippets in the tree that demonstrate some of these a
   * ast5.p8 - In which we implement impulse and world wrapping, and build a proper looking ship.
   * ast6.p8 - In which we provide ammunition for our experience, further building out state and related infrastructure.
   * ast7.p8 - In which we provide an awesome starfield because the world looks lonely, and fix a bug in our shooty bits.
-  * ast8.p8 - In which we add asteroid targets.
+  * ast8.p8 - In which we add asteroid targets and a console.
   * ast9.p8 - In which we add melodious sounds.
-  * ast10.p8 - In which we add a score mechanism.
+  * ast10.p8 - In which we add a score mechanism, and your score is reset any time the ship intersects with an asteroid.
 
 ## Ideas!
 
@@ -75,3 +75,5 @@ There are also some source snippets in the tree that demonstrate some of these a
   * Have the asteroids explode into other asteroids.
   * Make the asteroids rotate as they move around.
   * Add collision for the ship against the edges of the screen, rather than wrap-around.
+  * Implement a game over screen and restart mechanism.
+  * Add a persistent high score mechanism using the cartridge memory built-ins. Bonus points for an initials entry UI.

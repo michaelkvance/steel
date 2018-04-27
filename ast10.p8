@@ -94,6 +94,20 @@ function vec2d_length(v)
 	return l
 end
 
+local function vec2d_point_in_circle(p, o, r)
+	local delta = vec2d_sub(p, o)
+	local distance = vec2d_dot(delta)
+	local check = r * r
+	return distance < check
+end
+
+local function vec2d_circles_intersect(a, ar, b, br)
+	local delta = vec2d_sub(a, b)
+	local distance = vec2d_dot(delta)
+	local check = (ar + br) * (ar + br)
+	return distance < check
+end
+
 function vec2d_tostring(v)
 	local s = v.x .. "," .. v.y
 	return s
@@ -445,20 +459,20 @@ local function world_resolve(world)
 	local ship = world.ship
 	local bullets = ship.bullets
 	local field = world.asteroids
-	for k,b in pairs(bullets) do
-		if b.alive then
-			for f,a in pairs(field.roids) do
-				if a.alive then
-					local delta = vec2d_sub(a.origin, b.origin)
-					local distance = vec2d_dot(delta)
-					local check = a.radius * a.radius
-					if distance < check then
+	for f,a in pairs(field.roids) do
+		if a.alive then
+			for k,b in pairs(bullets) do
+				if b.alive then
+					if vec2d_point_in_circle(b.origin, a.origin, a.radius) then
 						field.ready = 0
 						b.alive = false
 						a.alive = false
 						world.score += 1
 					end
 				end
+			end
+			if vec2d_circles_intersect(ship.origin, ship.size.x * 0.5, a.origin, a.radius) then
+				world.score = 0
 			end
 		end
 	end
@@ -477,7 +491,7 @@ end
 local function score_draw(world)
 	local score = world.score
 	color( 7 )
-	cursor( 90, 100 )
+	cursor( 90, 110 )
 	print("Score: " .. score)
 end
 

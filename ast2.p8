@@ -18,10 +18,6 @@ function xform(v,theta)
 	t = theta/360.0
 	st = sin(t)
 	ct = cos(t)
-	r00 = ct
-	r01 = -st
-	r10 = st
-	r11 = ct
 	vx = v.x
 	vy = v.y
 	xp = vx * ct - vy * st

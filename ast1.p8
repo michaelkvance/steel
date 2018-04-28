@@ -17,10 +17,11 @@ function _draw()
 	t = theta/360.0
 	st = sin(t)
 	ct = cos(t)
-	r00 = ct
-	r01 = -st
-	r10 = st
-	r11 = ct
+	-- matrix layout
+	-- r00 = ct
+	-- r01 = -st
+	-- r10 = st
+	-- r11 = ct
 	x0 = radius
 	y0 = 0
 	xp = x0 * ct - y0 * st

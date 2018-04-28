@@ -27,10 +27,6 @@ function vec2d_t:rotate(theta)
 	t = theta/360.0
 	st = sin(t)
 	ct = cos(t)
-	r00 = ct
-	r01 = -st
-	r10 = st
-	r11 = ct
 	vx = self.x
 	vy = self.y
 	xp = (vx*ct)-(vy*st)

@@ -2,7 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 16
 __lua__
 
--- let's add asteroids!
+-- let's add asteroids! and a console! what bugs in the text colors exist?
 
 console = {}
 
@@ -101,10 +101,6 @@ function vec2d_rotate(v, theta)
 	local t = theta / 360.0
 	local st = sin(t)
 	local ct = cos(t)
-	local r00 = ct
-	local r01 = -st
-	local r10 = st
-	local r11 = ct
 	local vx = v.x
 	local vy = v.y
 	local xp = (vx * ct) - (vy * st)

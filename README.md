@@ -1,9 +1,15 @@
 Steel
 ======
 Examples and reference for the [Rockland Steel House](http://www.rocklandsteelhouse.com) [programming series](https://github.com/michaelkvance/steel).  
-_24 Apr 2018_  
+_Last updated: 29 Apr 2018_  
 Wade Brainerd  
 Michael Vance  
+
+## Presentation
+
+[Presentation ](https://docs.google.com/presentation/d/1uCUSc1x66IUDpU3qBXkeRGB1qu1H5Vfj2eufnL1b2Ms/edit?usp=sharing)
+
+This is the presentation material that we went over in the advanced track.
 
 ## Pico-8
 
@@ -50,6 +56,10 @@ Pico-8 uses a 16:16 representation as opposed to the traditional 64-bit float in
 There are also some source snippets in the tree that demonstrate some of these advanced concepts.
 
   * vec2d_t.lua, shim.lua - This implements a simple vec2d_t 'class' and shows how to use it, including using the \_\_call method. Ultimately this method is unworkable for Pico-8 as the global 'require' is not supported in the Pico-8 Lua subset.
+
+[Fabien Sanglard's Website](http://fabiensanglard.net/)
+
+For those who were interested in a history and explanation of early ray-casting software 3-D engines, I recommend Fabien's book "Game Engine Black Book - Wolfenstein 3-D".
 
 ## Asteroids!
 

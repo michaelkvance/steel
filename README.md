@@ -1,21 +1,25 @@
 Steel
 ======
 Examples and reference for the [Rockland Steel House](http://www.rocklandsteelhouse.com) [programming series](https://github.com/michaelkvance/steel).  
-_Last updated: 29 Apr 2018_  
+_Last updated: 23 February 2019_  
 Wade Brainerd  
 Michael Vance  
 
 ## Presentation
 
-[Presentation ](https://docs.google.com/presentation/d/1uCUSc1x66IUDpU3qBXkeRGB1qu1H5Vfj2eufnL1b2Ms/edit?usp=sharing)
+[Steel House Presentation](https://docs.google.com/presentation/d/1uCUSc1x66IUDpU3qBXkeRGB1qu1H5Vfj2eufnL1b2Ms/edit?usp=sharing)
 
-This is the presentation material that we went over in the advanced track.
+This is the presentation material that we went over in the advanced track at Steel House.
+
+[Bowdoin Presentation](https://docs.google.com/presentation/d/1gJwueZ-l9vxLieIigIupu9cWY4E_ky72TFB3UhD1RUg/edit#slide=id.p)
+
+This is the variation presented at Bowdoin.
 
 ## Pico-8
 
 We are using the Pico-8 environment in order to get started quickly and get bits up on screen. Both Wade and I have a license which supports spawning for educational purposes such as the Steel House series.
 
-[Home page ](https://www.lexaloffle.com/pico-8.php)  
+[Home page](https://www.lexaloffle.com/pico-8.php)  
 [FAQ](https://www.lexaloffle.com/pico-8.php?page=faq)  
 [Manual](https://www.lexaloffle.com/pico-8.php?page=manual)  
 [Palette](https://www.romanzolotarev.com/pico-8-color-palette/)  
@@ -40,6 +44,12 @@ There are some snippets in the tree that demonstrate simple Lua concepts:
 
   * iter.lua - Shows the difference between iterating over keys and values in a table versus a sequence of integers.
   * value-reference.lua - Shows some of the differences in behaviors between atomic value types and reference-value types.
+
+## Linear Algebra
+
+[Deriving Rotations](https://www.khanacademy.org/computing/computer-programming/programming-games-visualizations/programming-3d-shapes/a/rotating-3d-shapes)
+
+A Khan walk through of deriving rotation matrices in two and three dimensions.
 
 ## Advanced Topics
 
